@@ -1,0 +1,4 @@
+export const event = { name: 'Partner Convening 2026', dates: '9–11 March 2026', location: 'Harare, Zimbabwe', venue: 'Meikles Hotel, Main Conference Centre', attendeeCount: '110+', sessionCount: '24', partnerCount: '38' };
+export const roles = ['Partner', 'OAK Staff', 'Coordination Team', 'Presenter', 'Observer'];
+export const attendeeNavigation = [{ to: '/', label: 'Register', icon: 'register' }, { to: '/qr-code', label: 'My pass', icon: 'ticket' }, { to: '/program', label: 'Programme', icon: 'programme' }, { to: '/partners', label: 'Partners', icon: 'partners' }];
+export const internalNavigation = [{ to: '/', label: 'Register', icon: 'register' }, { to: '/check-in', label: 'Check In', icon: 'checkin' }, { to: '/program', label: 'Programme', icon: 'programme' }, { to: '/partners', label: 'Partners', icon: 'partners' }, { to: '/attendance', label: 'Attendance', icon: 'attendance' }];

@@ -1,154 +1,20 @@
 import React, { useState } from 'react';
-import { Calendar as CalendarIcon, Clock, MapPin, User, Edit3, X, Save } from 'lucide-react';
+import { CalendarDays, ChevronDown, Download, FileText, Image, MapPin, NotebookPen } from 'lucide-react';
 
 const schedule = [
-  {
-    id: 1,
-    date: '9 Nov 2026',
-    time: '09:00 AM - 10:30 AM',
-    title: 'Opening Keynote: The Future of Global Health',
-    speaker: 'Dr. Sarah Jenkins',
-    venue: 'Main Auditorium',
-    description: 'A comprehensive overview of upcoming challenges and opportunities in the global health sector over the next decade.',
-  },
-  {
-    id: 2,
-    date: '9 Nov 2026',
-    time: '11:00 AM - 12:30 PM',
-    title: 'Panel: Funding Innovations',
-    speaker: 'Multiple Speakers',
-    venue: 'Hall B',
-    description: 'Exploring new mechanisms for funding grassroots initiatives effectively.',
-  }
+  { time: '08:00', kind: 'quiet', title: 'Registration & Welcome Coffee' }, { time: '10:30', kind: 'quiet', title: 'Coffee Break' },
+  { time: '10:50', kind: 'breakout', title: 'Thematic Dialogue: Climate Justice & Grantmaking', detail: 'Samuel Okafor · Africa Climate Alliance', room: 'Conference Room B2' },
+  { time: '12:00', kind: 'workshop', title: 'Workshop: Measuring Long-term Change', detail: 'Dr. Ingrid Holm · Nordic Evaluation Centre', room: 'Workshop Room C' },
+  { time: '12:00', kind: 'quiet', title: 'Networking Lunch' }, { time: '13:30', kind: 'plenary', title: 'Partner Spotlight: Rights-Based Approaches', detail: 'Fatima Zahra Benali · MENA Rights Group', room: 'Main Hall A1' },
+  { time: '14:45', kind: 'breakout', title: 'Digital Rights in Authoritarian Contexts', detail: 'Lina Wei · Digital Frontiers Institute', room: 'Conference Room D1' },
+  { time: '18:00', kind: 'social', title: 'Welcome Reception & Dinner', detail: '', room: 'Rooftop Terrace' }
 ];
+const notes = [{ title: 'Maria Schmidt', body: 'The most shared approaches were selected during dinner as a shared learning platform. Our OAK fellows will take these ideas forward in joint programming conversations.' }, { title: 'Tariro Moyo', body: 'Our long-term measurement approach is working group to share tools for practical implementation and common measurement challenges across partners.' }, { title: 'Lina Chen', body: 'Strong communication networks might be North Africa’s adaptive message framework to directly collaborate across OAK’s partner organizations.' }, { title: 'Amina A. Kone', body: 'Partners raised common pathways with an updated grant timeline. We will continue reviewing new forms of best practice.' }];
+const resources = ['Opening Plenary Presentation', 'OAK Portfolio Overview 2026–28', 'Action Planning Worksheet', 'Partner Contact Directory', 'Photo Gallery: Day 1'];
+const badge = (kind) => ({ breakout: 'Breakout', workshop: 'Workshop', plenary: 'Plenary', social: 'Social' }[kind]);
 
-const ProgramPage = () => {
-  const [selectedSession, setSelectedSession] = useState(null);
-  const [notes, setNotes] = useState({});
-  const [isEditingNote, setIsEditingNote] = useState(false);
-  const [tempNote, setTempNote] = useState('');
+export default function ProgramPage() { const [tab, setTab] = useState('schedule'); const [day, setDay] = useState(1); return <div className="reference-page"><main className="programme-reference"><header className="programme-header"><h1>Programme</h1><p>OAK Partner Convening 2026</p><div className="programme-tabs"><button className={tab === 'schedule' ? 'active' : ''} onClick={() => setTab('schedule')}>Schedule</button><button className={tab === 'docs' ? 'active' : ''} onClick={() => setTab('docs')}>Docs</button></div></header>{tab === 'schedule' ? <Schedule day={day} setDay={setDay} /> : <Documents />}</main></div>; }
 
-  const openSession = (session) => {
-    setSelectedSession(session);
-    setTempNote(notes[session.id] || '');
-    setIsEditingNote(false);
-  };
+function Schedule({ day, setDay }) { return <><section className="programme-days">{[1, 2, 3].map(number => <button key={number} onClick={() => setDay(number)} className={day === number ? 'active' : ''}><small>{number === 1 ? 'MON' : number === 2 ? 'TUE' : 'WED'}</small><strong>Day {number}</strong><span>{8 + number} Mar</span></button>)}</section>{day === 1 ? <><section className="featured-session"><small>★ FEATURED &nbsp;&nbsp; · &nbsp;&nbsp; 08:00–10:30</small><h2>Opening Plenary: Pathways to Impact</h2><p>Dr. Helena Murewa · OAK Foundation</p><span><MapPin /> Main Hall A</span></section><div className="programme-legend"><span className="plenary">● Plenary</span><span className="breakout">● Breakout</span><span className="workshop">● Workshop</span><span className="social">● Social</span></div><section className="timeline">{schedule.map((item, index) => item.kind === 'quiet' ? <div className="quiet-item" key={index}><time>{item.time}</time><span>{item.title}</span></div> : <article className="agenda-card" key={index}><time>{item.time}<small>–{index === 7 ? '20:00' : index === 6 ? '18:00' : index === 5 ? '14:30' : index === 4 ? '15:30' : index === 3 ? '13:00' : index === 2 ? '12:00' : '11:50'}</small></time><div><h3>{item.title}</h3>{item.detail && <p>{item.detail}</p>}<span><MapPin /> {item.room}</span></div><em className={item.kind}>{badge(item.kind)} <ChevronDown /></em></article>)}</section></> : <section className="empty-day"><CalendarDays /><h2>Day {day} agenda</h2><p>The detailed agenda will be shared shortly.</p></section>}</> }
 
-  const saveNote = () => {
-    setNotes({ ...notes, [selectedSession.id]: tempNote });
-    setIsEditingNote(false);
-  };
-
-  return (
-    <div className="min-h-screen bg-gray-50 flex">
-      {/* Schedule List */}
-      <div className={`w-full ${selectedSession ? 'hidden md:block md:w-1/2 lg:w-1/3' : 'w-full'} border-r border-gray-200 bg-white h-screen overflow-y-auto`}>
-        <div className="p-6 border-b border-gray-200 sticky top-0 bg-white z-10">
-          <h1 className="text-2xl font-bold text-gray-900">Event Program</h1>
-          <p className="text-sm text-gray-500 mt-1">9 Nov 2026 - 11 Nov 2026</p>
-        </div>
-        
-        <div className="p-4 space-y-4">
-          {schedule.map((session) => (
-            <div 
-              key={session.id} 
-              onClick={() => openSession(session)}
-              className={`p-4 rounded-xl border cursor-pointer transition-colors ${selectedSession?.id === session.id ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-blue-300 hover:bg-gray-50'}`}
-            >
-              <div className="flex items-center text-xs font-medium text-blue-600 mb-2">
-                <CalendarIcon className="w-3 h-3 mr-1" /> {session.date}
-                <Clock className="w-3 h-3 ml-3 mr-1" /> {session.time}
-              </div>
-              <h3 className="font-bold text-gray-900">{session.title}</h3>
-              <div className="mt-2 text-sm text-gray-600 flex flex-col space-y-1">
-                <div className="flex items-center">
-                  <User className="w-4 h-4 mr-2 text-gray-400" /> {session.speaker}
-                </div>
-                <div className="flex items-center">
-                  <MapPin className="w-4 h-4 mr-2 text-gray-400" /> {session.venue}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Session Details Pane */}
-      {selectedSession ? (
-        <div className="w-full md:w-1/2 lg:w-2/3 bg-gray-50 h-screen overflow-y-auto flex flex-col">
-          <div className="p-6 md:p-10 max-w-4xl w-full mx-auto">
-            <button 
-              onClick={() => setSelectedSession(null)}
-              className="md:hidden flex items-center text-blue-600 font-medium mb-6"
-            >
-              &larr; Back to Schedule
-            </button>
-            
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8 mb-8">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">{selectedSession.title}</h2>
-              
-              <div className="flex flex-wrap gap-4 text-sm font-medium text-gray-700 bg-gray-50 p-4 rounded-lg mb-6">
-                <div className="flex items-center"><CalendarIcon className="w-5 h-5 mr-2 text-blue-500" /> {selectedSession.date}</div>
-                <div className="flex items-center"><Clock className="w-5 h-5 mr-2 text-blue-500" /> {selectedSession.time}</div>
-                <div className="flex items-center"><MapPin className="w-5 h-5 mr-2 text-blue-500" /> {selectedSession.venue}</div>
-                <div className="flex items-center"><User className="w-5 h-5 mr-2 text-blue-500" /> {selectedSession.speaker}</div>
-              </div>
-
-              <h3 className="text-lg font-bold text-gray-900 mb-2">Session Description</h3>
-              <p className="text-gray-600 leading-relaxed">
-                {selectedSession.description}
-              </p>
-            </div>
-
-            {/* Notes Section */}
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
-              <div className="p-6 border-b border-gray-200 flex justify-between items-center bg-gray-50">
-                <h3 className="text-lg font-bold text-gray-900 flex items-center">
-                  <Edit3 className="w-5 h-5 mr-2 text-blue-600" />
-                  Personal Notes
-                </h3>
-                {!isEditingNote ? (
-                  <button onClick={() => setIsEditingNote(true)} className="text-sm font-medium text-blue-600 hover:text-blue-700">
-                    {notes[selectedSession.id] ? 'Edit Notes' : 'Create Notes'}
-                  </button>
-                ) : (
-                  <div className="flex space-x-2">
-                    <button onClick={() => setIsEditingNote(false)} className="p-2 text-gray-500 hover:text-gray-700">
-                      <X className="w-5 h-5" />
-                    </button>
-                    <button onClick={saveNote} className="flex items-center px-3 py-1.5 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700">
-                      <Save className="w-4 h-4 mr-1" /> Save
-                    </button>
-                  </div>
-                )}
-              </div>
-              <div className="p-6">
-                {isEditingNote ? (
-                  <textarea
-                    className="w-full h-48 p-4 border border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Type your notes here..."
-                    value={tempNote}
-                    onChange={(e) => setTempNote(e.target.value)}
-                    autoFocus
-                  />
-                ) : (
-                  <div className="min-h-[120px] text-gray-700 whitespace-pre-wrap">
-                    {notes[selectedSession.id] || <span className="text-gray-400 italic">No notes saved for this session.</span>}
-                  </div>
-                )}
-              </div>
-            </div>
-
-          </div>
-        </div>
-      ) : (
-        <div className="hidden md:flex w-1/2 lg:w-2/3 bg-gray-50 items-center justify-center h-screen text-gray-400 flex-col">
-          <CalendarIcon className="w-16 h-16 mb-4 text-gray-300" />
-          <p className="text-lg font-medium">Select a session to view details</p>
-        </div>
-      )}
-    </div>
-  );
-};
-
-export default ProgramPage;
+function Documents() { return <section className="docs-view"><div className="docs-heading"><span><FileText /> Session Notes</span><button>+ Add note</button></div>{notes.map((note, index) => <article className="note-card" key={note.title}><span className="note-avatar">{note.title.split(' ').map(word => word[0]).join('')}</span><div><strong>{note.title}</strong><small>{index + 1}h ago</small><p>{note.body}</p></div></article>)}<div className="docs-section-title"><Image /> Photo Gallery <small>6 photos</small></div><div className="photo-grid">{Array.from({ length: 6 }, (_, index) => <div className={`photo photo-${index + 1}`} key={index} />)}</div><div className="docs-section-title"><NotebookPen /> Key Takeaways</div><article className="takeaways">{['Partnership needs to accept the year into horizons for systems change.', 'Shared learning infrastructure is the most requested resource across the convening.', 'Digital rights must be integrated into all programme areas, not siloed.', 'Rights-based funding effectively improves partner advocacy effectiveness.', 'Peer exchange is the most valued support across OAK’s NGO network.'].map(item => <p key={item}>● <span>{item}</span></p>)}</article><div className="docs-section-title"><FileText /> Resources</div><div className="resource-list">{resources.map((resource, index) => <button key={resource}><FileText /><span><strong>{resource}</strong><small>{index === 4 ? '12 photos · added today' : 'PDF · 1.4 MB · added today'}</small></span><Download /></button>)}</div></section> }
