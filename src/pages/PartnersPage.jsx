@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { ArrowLeft, ChevronRight, ExternalLink, Globe2, Mail, Search } from 'lucide-react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const partners = [
   { id: 1, initials: 'OSF', name: 'Open Society Foundations', region: 'Global', since: '2018', tags: ['Foundation', 'Democracy', 'Human Rights'], website: 'opensocietyfoundations.org', about: 'Open Society Foundations builds vibrant and tolerant democracies. OAK partnership covers digital rights and justice initiatives across Eastern Europe and Central Asia.', contact: 'Maria Schmidt', email: 'm.schmidt@osf.org' },
@@ -14,8 +15,10 @@ const partners = [
 const regions = ['All Regions', 'Global', 'Sub-Saharan Africa', 'Northern Europe', 'Middle East & North Africa'];
 function Initials({ children, muted = false }) { return <span className={`partner-initials ${muted ? 'muted' : ''}`}>{children}</span>; }
 
-export default function PartnersPage({ initialPartnerId = null }) {
-  const [selected, setSelected] = useState(() => partners.find((partner) => partner.id === initialPartnerId) || null);
+export default function PartnersPage() {
+  const navigate = useNavigate(); const { partnerId } = useParams();
+  const [selected, setSelectedState] = useState(() => partners.find((partner) => partner.id === Number(partnerId)) || null);
+  const setSelected = (partner) => { setSelectedState(partner); navigate(partner ? `/partners/${partner.id}` : '/partners'); };
   const [query, setQuery] = useState(''); const [region, setRegion] = useState('All Regions');
   const visible = useMemo(() => partners.filter((partner) => `${partner.name} ${partner.region} ${partner.tags.join(' ')}`.toLowerCase().includes(query.toLowerCase()) && (region === 'All Regions' || partner.region.includes(region))), [query, region]);
   if (selected) return <div className="reference-page"><main className="partner-detail reference-column"><button className="reference-back" onClick={() => setSelected(null)}><ArrowLeft /> Partner Directory</button><section className="partner-hero"><Initials>{selected.initials}</Initials><div><p>FOUNDATION · PARTNER SINCE {selected.since}</p><h1>{selected.name}</h1></div><div className="partner-tags">{selected.tags.slice(1).map((tag) => <span key={tag}>{tag}</span>)}</div></section><section className="reference-card partner-about"><p className="reference-label">ABOUT</p><p>{selected.about}</p></section><section className="reference-card partner-contact"><p className="reference-label">CONTACT AT CONVENING</p><div><Initials>{selected.contact.split(' ').map((word) => word[0]).join('')}</Initials><span><strong>{selected.contact}</strong><small>{selected.email}</small></span></div></section><a className="partner-primary-action" href={`https://${selected.website}`}><Globe2 /> Visit Website <ExternalLink /></a><a className="partner-message-action" href={`mailto:${selected.email}`}><Mail /> Send Message <ChevronRight /></a></main></div>;

@@ -1,0 +1,98 @@
+Starting the development server...
+
+Compiled with warnings.
+
+Failed to parse source map from 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\common\HTMLCanvasElementLuminanceSource.ts' file: Error: ENOENT: no such file or directory, open 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\common\HTMLCanvasElementLuminanceSource.ts'
+
+Failed to parse source map from 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\common\HTMLVisualMediaElement.ts' file: Error: ENOENT: no such file or directory, open 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\common\HTMLVisualMediaElement.ts'
+
+Failed to parse source map from 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\common\IScannerControls.ts' file: Error: ENOENT: no such file or directory, open 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\common\IScannerControls.ts'
+
+Failed to parse source map from 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\common\navigator-utils.ts' file: Error: ENOENT: no such file or directory, open 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\common\navigator-utils.ts'
+
+Failed to parse source map from 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\index.ts' file: Error: ENOENT: no such file or directory, open 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\index.ts'
+
+Failed to parse source map from 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\readers\BrowserAztecCodeReader.ts' file: Error: ENOENT: no such file or directory, open 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\readers\BrowserAztecCodeReader.ts'
+
+Failed to parse source map from 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\readers\BrowserCodeReader.ts' file: Error: ENOENT: no such file or directory, open 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\readers\BrowserCodeReader.ts'
+
+Failed to parse source map from 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\readers\BrowserDatamatrixCodeReader.ts' file: Error: ENOENT: no such file or directory, open 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\readers\BrowserDatamatrixCodeReader.ts'
+
+Failed to parse source map from 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\readers\BrowserMultiFormatOneDReader.ts' file: Error: ENOENT: no such file or directory, open 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\readers\BrowserMultiFormatOneDReader.ts'
+
+Failed to parse source map from 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\readers\BrowserMultiFormatReader.ts' file: Error: ENOENT: no such file or directory, open 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\readers\BrowserMultiFormatReader.ts'
+
+Failed to parse source map from 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\readers\BrowserPDF417Reader.ts' file: Error: ENOENT: no such file or directory, open 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\readers\BrowserPDF417Reader.ts'
+
+Failed to parse source map from 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\readers\BrowserQRCodeReader.ts' file: Error: ENOENT: no such file or directory, open 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\readers\BrowserQRCodeReader.ts'
+
+Failed to parse source map from 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\readers\IBrowserCodeReaderOptions.ts' file: Error: ENOENT: no such file or directory, open 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\readers\IBrowserCodeReaderOptions.ts'
+
+Failed to parse source map from 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\writers\BrowserCodeSvgWriter.ts' file: Error: ENOENT: no such file or directory, open 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\writers\BrowserCodeSvgWriter.ts'
+
+Failed to parse source map from 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\writers\BrowserQRCodeSvgWriter.ts' file: Error: ENOENT: no such file or directory, open 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\writers\BrowserQRCodeSvgWriter.ts'
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+WARNING in ./node_modules/@zxing/browser/esm/common/HTMLCanvasElementLuminanceSource.js
+Module Warning (from ./node_modules/source-map-loader/dist/cjs.js):
+Failed to parse source map from 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\common\HTMLCanvasElementLuminanceSource.ts' file: Error: ENOENT: no such file or directory, open 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\common\HTMLCanvasElementLuminanceSource.ts'
+
+WARNING in ./node_modules/@zxing/browser/esm/common/HTMLVisualMediaElement.js
+Module Warning (from ./node_modules/source-map-loader/dist/cjs.js):
+Failed to parse source map from 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\common\HTMLVisualMediaElement.ts' file: Error: ENOENT: no such file or directory, open 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\common\HTMLVisualMediaElement.ts'
+
+WARNING in ./node_modules/@zxing/browser/esm/common/IScannerControls.js
+Module Warning (from ./node_modules/source-map-loader/dist/cjs.js):
+Failed to parse source map from 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\common\IScannerControls.ts' file: Error: ENOENT: no such file or directory, open 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\common\IScannerControls.ts'
+
+WARNING in ./node_modules/@zxing/browser/esm/common/navigator-utils.js
+Module Warning (from ./node_modules/source-map-loader/dist/cjs.js):
+Failed to parse source map from 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\common\navigator-utils.ts' file: Error: ENOENT: no such file or directory, open 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\common\navigator-utils.ts'
+
+WARNING in ./node_modules/@zxing/browser/esm/index.js
+Module Warning (from ./node_modules/source-map-loader/dist/cjs.js):
+Failed to parse source map from 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\index.ts' file: Error: ENOENT: no such file or directory, open 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\index.ts'
+
+WARNING in ./node_modules/@zxing/browser/esm/readers/BrowserAztecCodeReader.js
+Module Warning (from ./node_modules/source-map-loader/dist/cjs.js):
+Failed to parse source map from 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\readers\BrowserAztecCodeReader.ts' file: Error: ENOENT: no such file or directory, open 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\readers\BrowserAztecCodeReader.ts'
+
+WARNING in ./node_modules/@zxing/browser/esm/readers/BrowserCodeReader.js
+Module Warning (from ./node_modules/source-map-loader/dist/cjs.js):
+Failed to parse source map from 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\readers\BrowserCodeReader.ts' file: Error: ENOENT: no such file or directory, open 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\readers\BrowserCodeReader.ts'
+
+WARNING in ./node_modules/@zxing/browser/esm/readers/BrowserDatamatrixCodeReader.js
+Module Warning (from ./node_modules/source-map-loader/dist/cjs.js):
+Failed to parse source map from 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\readers\BrowserDatamatrixCodeReader.ts' file: Error: ENOENT: no such file or directory, open 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\readers\BrowserDatamatrixCodeReader.ts'
+
+WARNING in ./node_modules/@zxing/browser/esm/readers/BrowserMultiFormatOneDReader.js
+Module Warning (from ./node_modules/source-map-loader/dist/cjs.js):
+Failed to parse source map from 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\readers\BrowserMultiFormatOneDReader.ts' file: Error: ENOENT: no such file or directory, open 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\readers\BrowserMultiFormatOneDReader.ts'
+
+WARNING in ./node_modules/@zxing/browser/esm/readers/BrowserMultiFormatReader.js
+Module Warning (from ./node_modules/source-map-loader/dist/cjs.js):
+Failed to parse source map from 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\readers\BrowserMultiFormatReader.ts' file: Error: ENOENT: no such file or directory, open 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\readers\BrowserMultiFormatReader.ts'
+
+WARNING in ./node_modules/@zxing/browser/esm/readers/BrowserPDF417Reader.js
+Module Warning (from ./node_modules/source-map-loader/dist/cjs.js):
+Failed to parse source map from 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\readers\BrowserPDF417Reader.ts' file: Error: ENOENT: no such file or directory, open 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\readers\BrowserPDF417Reader.ts'
+
+WARNING in ./node_modules/@zxing/browser/esm/readers/BrowserQRCodeReader.js
+Module Warning (from ./node_modules/source-map-loader/dist/cjs.js):
+Failed to parse source map from 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\readers\BrowserQRCodeReader.ts' file: Error: ENOENT: no such file or directory, open 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\readers\BrowserQRCodeReader.ts'
+
+WARNING in ./node_modules/@zxing/browser/esm/readers/IBrowserCodeReaderOptions.js
+Module Warning (from ./node_modules/source-map-loader/dist/cjs.js):
+Failed to parse source map from 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\readers\IBrowserCodeReaderOptions.ts' file: Error: ENOENT: no such file or directory, open 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\readers\IBrowserCodeReaderOptions.ts'
+
+WARNING in ./node_modules/@zxing/browser/esm/writers/BrowserCodeSvgWriter.js
+Module Warning (from ./node_modules/source-map-loader/dist/cjs.js):
+Failed to parse source map from 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\writers\BrowserCodeSvgWriter.ts' file: Error: ENOENT: no such file or directory, open 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\writers\BrowserCodeSvgWriter.ts'
+
+WARNING in ./node_modules/@zxing/browser/esm/writers/BrowserQRCodeSvgWriter.js
+Module Warning (from ./node_modules/source-map-loader/dist/cjs.js):
+Failed to parse source map from 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\writers\BrowserQRCodeSvgWriter.ts' file: Error: ENOENT: no such file or directory, open 'D:\Uncommon\OAK\oak\node_modules\@zxing\src\writers\BrowserQRCodeSvgWriter.ts'
+
+webpack compiled with 15 warnings
