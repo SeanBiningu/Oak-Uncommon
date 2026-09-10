@@ -12,6 +12,9 @@ const read = (key, fallback) => {
 const notify = () => window.dispatchEvent(new Event('oak-event-data-change'));
 
 export const getProfile = () => read(profileKey, defaultProfile);
+// Unlike getProfile, this does not return sample data. It is used for UI that
+// must stay in the pre-registration state until someone has actually registered.
+export const getRegisteredProfile = () => read(profileKey, null);
 export const saveProfile = (profile) => { window.localStorage.setItem(profileKey, JSON.stringify(profile)); notify(); return profile; };
 export const getCheckins = () => read(checkinsKey, []);
 export const recordCheckin = (person) => {

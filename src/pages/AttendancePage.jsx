@@ -3,7 +3,7 @@ import { ArrowUpRight, ScanLine, Search, Users } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { event } from '../data/event';
 import { getAttendanceDashboard } from '../lib/eventApi';
-import { supabase } from '../lib/supabaseClient';
+import { isSupabaseConfigured, supabase } from '../lib/supabaseClient';
 
 const formatTime = (iso) => new Intl.DateTimeFormat([], { hour: '2-digit', minute: '2-digit' }).format(new Date(iso));
 const initials = (name) => name.split(' ').map((part) => part[0]).join('').slice(0, 2).toUpperCase();
@@ -20,8 +20,17 @@ export default function AttendancePage() {
       finally { if (active) setLoading(false); }
     };
     refresh();
-    const channel = supabase.channel(`attendance-${event.id}`).on('postgres_changes', { event: '*', schema: 'public', table: 'check_ins' }, refresh).subscribe();
-    return () => { active = false; supabase.removeChannel(channel); };
+
+    // The dashboard can show a helpful configuration error without a Supabase
+    // client. Only create a realtime channel when that client exists.
+    const channel = isSupabaseConfigured
+      ? supabase.channel(`attendance-${event.id}`).on('postgres_changes', { event: '*', schema: 'public', table: 'check_ins' }, refresh).subscribe()
+      : null;
+
+    return () => {
+      active = false;
+      if (channel) supabase.removeChannel(channel);
+    };
   }, []);
   const arrivals = useMemo(() => dashboard.arrivals || [], [dashboard.arrivals]);
   const visible = useMemo(() => arrivals.filter((person) => `${person.name} ${person.organization} ${person.role}`.toLowerCase().includes(search.toLowerCase())), [arrivals, search]);
