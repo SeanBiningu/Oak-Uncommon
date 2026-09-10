@@ -1,9 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { ArrowUpRight, ScanLine, Search, Users } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { getCheckins } from '../data/store';
+import { event } from '../data/event';
+import { getAttendanceDashboard } from '../lib/eventApi';
+import { supabase } from '../lib/supabaseClient';
 
-const people = [{ name: 'Maria Schmidt', org: 'Global Health Initiative', time: '08:42', initials: 'MS' }, { name: 'Tariro Moyo', org: 'Africa Climate Alliance', time: '08:39', initials: 'TM' }, { name: 'Lina Berg', org: 'Nordic Evaluation Centre', time: '08:31', initials: 'LB' }];
 const formatTime = (iso) => new Intl.DateTimeFormat([], { hour: '2-digit', minute: '2-digit' }).format(new Date(iso));
+const initials = (name) => name.split(' ').map((part) => part[0]).join('').slice(0, 2).toUpperCase();
 
-export default function AttendancePage() { const navigate = useNavigate(); const [search, setSearch] = useState(''); const [checkins, setCheckins] = useState(getCheckins); useEffect(() => { const refresh = () => setCheckins(getCheckins()); window.addEventListener('oak-event-data-change', refresh); window.addEventListener('storage', refresh); return () => { window.removeEventListener('oak-event-data-change', refresh); window.removeEventListener('storage', refresh); }; }, []); const livePeople = checkins.map((entry) => ({ name: entry.name, org: entry.detail?.split(' · ')[0] || entry.organisation || 'OAK Partner', time: formatTime(entry.checkedInAt), initials: entry.initials })); const allPeople = [...livePeople, ...people.filter((person) => !livePeople.some((entry) => entry.name === person.name))]; const visible = allPeople.filter(p => `${p.name} ${p.org}`.toLowerCase().includes(search.toLowerCase())); const checkedIn = 34 + checkins.length; return <div className="reference-page internal-page"><main className="attendance-wrap"><header className="split-heading"><div><span className="eyebrow">EVENT TEAM</span><h1>Attendance</h1><p>Live arrival tracking for Partner Convening 2026.</p></div><button onClick={() => navigate('/check-in')}><ScanLine /> Open scanner</button></header><section className="attendance-metrics"><article><Users /><strong>{checkedIn}</strong><span>Checked in</span><small>{Math.round((checkedIn / 110) * 100)}% of expected</small></article><article><strong>110</strong><span>Expected today</span><small>Across all registrations</small></article><article><strong>{Math.max(0, 110 - checkedIn)}</strong><span>Still to arrive</span><small>Updates after every scan</small></article></section><section className="arrivals-card reference-card"><header><div><h2>Recent arrivals</h2><p>{checkins.length ? 'Live scan activity' : 'Latest confirmed attendee check-ins'}</p></div><label><Search /><input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search attendees" /></label></header>{visible.map(person => <div className="arrival-row" key={person.name}><span className="avatar">{person.initials}</span><span><strong>{person.name}</strong><small>{person.org}</small></span><span className="arrival-time"><strong>{person.time}</strong><small>Checked in</small></span><ArrowUpRight /></div>)}</section></main></div>; }
+export default function AttendancePage() {
+  const navigate = useNavigate(); const [search, setSearch] = useState('');
+  const [dashboard, setDashboard] = useState({ totalRegistered: 0, totalAttendees: 0, attendancePercentage: 0, arrivals: [] });
+  const [error, setError] = useState(''); const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    let active = true;
+    const refresh = async () => {
+      try { const report = await getAttendanceDashboard(event.id); if (active) { setDashboard(report); setError(''); } }
+      catch (requestError) { if (active) setError(requestError.message || 'Attendance data could not be loaded.'); }
+      finally { if (active) setLoading(false); }
+    };
+    refresh();
+    const channel = supabase.channel(`attendance-${event.id}`).on('postgres_changes', { event: '*', schema: 'public', table: 'check_ins' }, refresh).subscribe();
+    return () => { active = false; supabase.removeChannel(channel); };
+  }, []);
+  const arrivals = useMemo(() => dashboard.arrivals || [], [dashboard.arrivals]);
+  const visible = useMemo(() => arrivals.filter((person) => `${person.name} ${person.organization} ${person.role}`.toLowerCase().includes(search.toLowerCase())), [arrivals, search]);
+  const remaining = Math.max(0, Number(dashboard.totalRegistered) - Number(dashboard.totalAttendees));
+  return <div className="reference-page internal-page"><main className="attendance-wrap"><header className="split-heading"><div><span className="eyebrow">EVENT TEAM</span><h1>Attendance</h1><p>Live arrival tracking for {event.name}.</p></div><button onClick={() => navigate('/check-in')}><ScanLine /> Open scanner</button></header><section className="attendance-metrics"><article><Users /><strong>{dashboard.totalAttendees}</strong><span>Checked in</span><small>{dashboard.attendancePercentage}% of registered</small></article><article><strong>{dashboard.totalRegistered}</strong><span>Registered</span><small>Across all roles</small></article><article><strong>{remaining}</strong><span>Still to arrive</span><small>Updates after every scan</small></article></section><section className="arrivals-card reference-card"><header><div><h2>Recent arrivals</h2><p>{loading ? 'Loading attendance…' : 'Live scan activity'}</p></div><label><Search /><input value={search} onChange={(item) => setSearch(item.target.value)} placeholder="Search attendees" /></label></header>{error && <p className="camera-error" role="alert">{error}</p>}{!loading && !visible.length && <p className="empty-notes">No checked-in participants yet.</p>}{visible.map((person) => <div className="arrival-row" key={person.id}><span className="avatar">{initials(person.name)}</span><span><strong>{person.name}</strong><small>{person.organization} · {person.role}</small></span><span className="arrival-time"><strong>{formatTime(person.checkedInAt)}</strong><small>Checked in</small></span><ArrowUpRight /></div>)}</section></main></div>;
+}
