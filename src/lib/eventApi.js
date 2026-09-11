@@ -30,3 +30,37 @@ export async function getAttendanceDashboard(eventId) {
   if (error) throw error;
   return data;
 }
+
+export async function getSessions(eventId) {
+  requireClient();
+  const { data, error } = await supabase.from('sessions').select('*').eq('event_id', eventId).order('starts_at');
+  if (error) throw error;
+  return data;
+}
+
+export async function getPartners(eventId) {
+  requireClient();
+  const { data, error } = await supabase.from('partners').select('*').eq('event_id', eventId).order('name');
+  if (error) throw error;
+  return data;
+}
+
+export async function getNotes(sessionId) {
+  requireClient();
+  const { data, error } = await supabase.from('session_notes').select('*').eq('session_id', sessionId).order('created_at', { ascending: false });
+  if (error) throw error;
+  return data;
+}
+
+export async function saveNote(sessionId, authorId, body) {
+  requireClient();
+  const { data, error } = await supabase.from('session_notes').insert({ session_id: sessionId, author_id: authorId, body }).select().single();
+  if (error) throw error;
+  return data;
+}
+
+export async function sendRegistrationConfirmation(participantId) {
+  requireClient();
+  const { error } = await supabase.functions.invoke('send-registration-confirmation', { body: { participantId } });
+  if (error) throw error;
+}

@@ -20,6 +20,8 @@ where id = '<auth-user-uuid>';
 
 The browser never receives a service-role key. The `check_in_by_qr` RPC only permits `coordination_team` or `admin`, records who performed the scan, and rejects duplicate scans.
 
-Registration now requires a verified email link and records the Auth user ID with the participant record. Do not expose the `profiles` role editor to ordinary users.
+Registration now requires a verified email link and records the Auth user ID with the participant record. The fourth migration automatically assigns the low-risk Presenter and Observer app roles. OAK Staff, Coordination Team, and admin roles remain administrator-assigned. Do not expose the `profiles` role editor to ordinary users.
 
 The third migration enables the coordinator attendance dashboard and real-time refresh after each check-in. Run it before testing `/attendance`.
+
+Run the fifth migration to enable the Admin page (`/admin`) and live content tables. First promote one trusted Auth user to `admin`; that account can publish sessions and partners and assign app roles.
