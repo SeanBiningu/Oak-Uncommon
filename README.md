@@ -1,70 +1,267 @@
-# Getting Started with Create React App
+# OAK Zimbabwe Partner Gathering
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A web platform built for the **OAK Zimbabwe Foundation Partner Gathering** to manage attendee registration, QR-based daily check-in, live headcount, the event programme, and the partner directory.
 
-## Available Scripts
+The platform is designed for the OAK Partner Convening taking place at **Cresta Lodge, Msasa, Harare, from 9–11 November 2026**.
 
-In the project directory, you can run:
+## Overview
 
-### `npm start`
+The OAK Partner Gathering platform provides a simple and reliable way to manage event attendance and information.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Attendees can register online and receive a unique QR code that is used for daily check-in. The coordination team can scan QR codes using a smartphone camera through the browser and monitor the live attendance count.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+The platform also provides a public programme page and partner directory.
 
-### `npm test`
+## Features
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Attendee Registration
 
-### `npm run build`
+* Online registration form
+* Captures:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  * Full name
+  * Organization / sub-partner
+  * Role
+  * Contact details
+  * Dietary needs
+  * Accessibility needs
+  * Travel needs
+* Registration validation
+* Consent statement
+* Unique QR code generated for each attendee
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Digital Attendee Pass
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Each registered attendee receives a digital pass containing:
 
-### `npm run eject`
+* Name
+* Organization
+* QR code
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### QR Check-in
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+* Browser-based QR scanner
+* Works with a smartphone camera
+* Records attendance for each event day
+* Prevents double-counting on the same day
+* No special scanning hardware required
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Live Headcount
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+The coordination team can view:
 
-## Learn More
+* Current attendance
+* Daily check-ins
+* Attendee information
+* Searchable attendee records
+* CSV export for accommodation planning
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Event Programme
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+* Day-by-day programme
+* Session times
+* Session locations
+* Session details
+* Daily documentation posts
+* Notes and curated photos
 
-### Code Splitting
+### Partner Directory
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+* Partner organizations
+* Sub-partners
+* Organization logos
+* Website links
 
-### Analyzing the Bundle Size
+### Admin
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Only authorized coordination team members can access administrative functionality.
 
-### Making a Progressive Web App
+Admins can manage:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+* Attendees
+* Check-ins
+* Programme content
+* Partner directory content
+* Event documentation
 
-### Advanced Configuration
+## Tech Stack
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+* **Next.js** — Application framework
+* **TypeScript** — Type-safe development
+* **Tailwind CSS** — Styling and responsive UI
+* **Supabase** — PostgreSQL database, authentication and file storage
+* **qrcode.react** — QR code generation
+* **html5-qrcode** — Browser-based QR scanning
+* **Vercel** — Deployment
 
-### Deployment
+## Project Structure
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```text
+project/
+├── app/
+│   ├── page.tsx
+│   ├── register/
+│   ├── programme/
+│   ├── partners/
+│   └── admin/
+│
+├── components/
+│   ├── QRScanner
+│   ├── QRCode
+│   ├── RegistrationForm
+│   ├── Headcount
+│   └── ...
+│
+├── lib/
+│   └── supabase/
+│
+├── public/
+│   └── ...
+│
+├── .env.local
+├── package.json
+├── README.md
+└── ...
+```
 
-### `npm run build` fails to minify
+## Getting Started
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### 1. Clone the repository
+
+```bash
+git clone YOUR_REPOSITORY_URL
+```
+
+### 2. Navigate into the project
+
+```bash
+cd YOUR_PROJECT_FOLDER
+```
+
+### 3. Install dependencies
+
+```bash
+npm install
+```
+
+### 4. Configure environment variables
+
+Create a `.env.local` file in the root of the project.
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+Do not commit `.env.local` or any other file containing secrets to GitHub.
+
+### 5. Start the development server
+
+```bash
+npm run dev
+```
+
+Open:
+
+```text
+http://localhost:3000
+```
+
+## Supabase
+
+Supabase is used for:
+
+* PostgreSQL database
+* Admin authentication
+* File storage
+* Database access policies
+
+The platform handles personal information, so access to attendee information must be protected at the database level.
+
+Sensitive attendee information such as dietary, accessibility, travel and contact details should only be accessible to authorized administrators.
+
+## Security
+
+Security and privacy are important because the platform handles personal and organizational information.
+
+The application should:
+
+* Restrict attendee information to authorized admins
+* Use Supabase Row Level Security (RLS)
+* Protect sensitive database records
+* Keep secrets in environment variables
+* Prevent sensitive information from being returned through public APIs
+* Prevent duplicate daily check-ins
+* Require admin authentication for administrative functionality
+
+## Event Workflow
+
+```text
+Attendee
+   │
+   ▼
+Registration
+   │
+   ▼
+Unique QR Code
+   │
+   ▼
+Digital Attendee Pass
+   │
+   ▼
+QR Scan at Event
+   │
+   ▼
+Daily Check-in Recorded
+   │
+   ▼
+Live Headcount Updated
+```
+
+## User Access
+
+### Public Users
+
+Public users can access:
+
+* Registration
+* Attendee pass
+* Event programme
+* Partner directory
+
+### Administrators
+
+Authorized administrators can access:
+
+* Admin dashboard
+* Attendee records
+* QR scanner
+* Daily check-ins
+* Live headcount
+* Programme management
+* Partner management
+* Documentation management
+
+Attendees do not require accounts or passwords. They are identified through their unique QR code.
+
+## Responsive Design
+
+The platform is designed as a responsive web application and should work across:
+
+* Desktop computers
+* Tablets
+* Smartphones
+
+The QR scanner is designed to work through a smartphone browser without requiring a native mobile application.
+
+## Deployment
+
+The application is deployed using **Vercel**, with Supabase providing the backend services.
+
+Before deploying:
+
+1. Configure the required environment variables.
+2. Confirm the Supabase database is configured.
+3. Confirm Row Level Security policies are enabled.
+4. Test registration.
+5. Test Q
